@@ -4,6 +4,7 @@
  */
 package com.mycompany.proyecto1_archivos_ss26.controller;
 
+import com.mycompany.proyecto1_archivos_ss26.dto.MovimientoInventarioResponseDTO;
 import com.mycompany.proyecto1_archivos_ss26.dto.StockActualResponseDTO;
 import com.mycompany.proyecto1_archivos_ss26.service.InventarioService;
 import java.util.List;
@@ -36,6 +37,11 @@ public class InventarioController {
     @GetMapping("/stock/{idProducto}")
     public StockActualResponseDTO consultarStock(@PathVariable Integer idProducto) {
         return this.inventarioService.consultarStockDeProducto(idProducto);
+    }
+
+    @GetMapping("/movimientos/{idProducto}")
+    public List<MovimientoInventarioResponseDTO> listarMovimientos(@PathVariable Integer idProducto) {
+        return this.inventarioService.listarMovimientosDeProducto(idProducto);
     }
 
 }

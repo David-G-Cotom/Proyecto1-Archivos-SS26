@@ -25,22 +25,22 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     List<Producto> findByCategoria_IdCategoria(Integer idCategoria);
 
     @Query("""
-            SELECT p.idProducto AS idProducto,
+            SELECT p.id_producto AS idProducto,
                    p.nombre     AS nombre,
-                   p.stockMinimo AS stockMinimo,
-                   p.stockActual AS stockActual
+                   p.stock_minimo AS stockMinimo,
+                   p.stock_actual AS stockActual
             FROM Producto p
             WHERE p.activo = true
             """)
     List<StockActualProjection> listarStockActual();
 
     @Query("""
-            SELECT p.idProducto AS idProducto,
+            SELECT p.id_producto AS idProducto,
                    p.nombre     AS nombre,
-                   p.stockMinimo AS stockMinimo,
-                   p.stockActual AS stockActual
+                   p.stock_minimo AS stockMinimo,
+                   p.stock_actual AS stockActual
             FROM Producto p
-            WHERE p.idProducto = :idProducto
+            WHERE p.id_producto = :idProducto
             """)
     Optional<StockActualProjection> obtenerStockActual(@Param("idProducto") Integer idProducto);
 
