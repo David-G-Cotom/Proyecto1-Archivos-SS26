@@ -47,10 +47,13 @@ public class Producto {
     @Column(name = "activo", nullable = false)
     private Boolean activo;
 
+    @Column(name = "stock_actual", nullable = false)
+    private Integer stockActual;
+
     public Producto() {
     }
 
-    public Producto(Integer idProducto, Categoria categoria, String nombre, String descripcion, BigDecimal precioVenta, Integer stockMinimo, Boolean activo) {
+    public Producto(Integer idProducto, Categoria categoria, String nombre, String descripcion, BigDecimal precioVenta, Integer stockMinimo, Boolean activo, Integer stockActual) {
         this.idProducto = idProducto;
         this.categoria = categoria;
         this.nombre = nombre;
@@ -58,6 +61,7 @@ public class Producto {
         this.precioVenta = precioVenta;
         this.stockMinimo = stockMinimo;
         this.activo = activo;
+        this.stockActual = stockActual;
     }
 
     public Integer getIdProducto() {
@@ -114,6 +118,14 @@ public class Producto {
 
     public void setActivo(Boolean activo) {
         this.activo = activo;
+    }
+
+    public Integer getStockActual() {
+        return stockActual;
+    }
+
+    public void setStockActual(Integer stockActual) {
+        this.stockActual = stockActual;
     }
 
 }
