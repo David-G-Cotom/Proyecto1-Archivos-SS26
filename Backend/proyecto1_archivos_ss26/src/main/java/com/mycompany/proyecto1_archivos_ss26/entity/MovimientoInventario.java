@@ -53,13 +53,14 @@ public class MovimientoInventario {
     @JoinColumn(name = "id_compra")
     private Compra compra;
 
-    @Column(name = "id_venta")
-    private Integer idVenta;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_venta")
+    private Venta venta;
 
     public MovimientoInventario() {
     }
 
-    public MovimientoInventario(Integer idMovimiento, Producto producto, Usuario usuario, TipoMovimiento tipoMovimiento, Integer cantidad, LocalDateTime fecha, Compra compra, Integer idVenta) {
+    public MovimientoInventario(Integer idMovimiento, Producto producto, Usuario usuario, TipoMovimiento tipoMovimiento, Integer cantidad, LocalDateTime fecha, Compra compra, Venta venta) {
         this.idMovimiento = idMovimiento;
         this.producto = producto;
         this.usuario = usuario;
@@ -67,7 +68,7 @@ public class MovimientoInventario {
         this.cantidad = cantidad;
         this.fecha = fecha;
         this.compra = compra;
-        this.idVenta = idVenta;
+        this.venta = venta;
     }
 
     public Integer getIdMovimiento() {
@@ -126,12 +127,12 @@ public class MovimientoInventario {
         this.compra = compra;
     }
 
-    public Integer getIdVenta() {
-        return idVenta;
+    public Venta getVenta() {
+        return venta;
     }
 
-    public void setIdVenta(Integer idVenta) {
-        this.idVenta = idVenta;
+    public void setVenta(Venta venta) {
+        this.venta = venta;
     }
 
 }

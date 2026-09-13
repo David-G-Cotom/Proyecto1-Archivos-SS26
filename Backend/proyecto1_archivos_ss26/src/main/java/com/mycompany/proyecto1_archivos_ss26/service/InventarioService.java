@@ -105,8 +105,8 @@ public class InventarioService {
         String origen;
         if (m.getCompra() != null) {
             origen = "Compra #" + m.getCompra().getIdCompra();
-        } else if (m.getIdVenta() != null) {
-            origen = "Venta #" + m.getIdVenta();
+        } else if (m.getVenta() != null) {
+            origen = "Venta #" + m.getVenta().getIdVenta();
         } else {
             origen = "Ajuste manual";
         }

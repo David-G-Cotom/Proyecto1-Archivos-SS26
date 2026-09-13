@@ -4,7 +4,8 @@
  */
 package com.mycompany.proyecto1_archivos_ss26.repository;
 
-import com.mycompany.proyecto1_archivos_ss26.entity.Producto;
+import com.mycompany.proyecto1_archivos_ss26.entity.Venta;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,12 +13,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author david
  */
-public interface ProductoRepository extends JpaRepository<Producto, Integer> {
+public interface VentaRepository extends JpaRepository<Venta, Integer> {
 
-    List<Producto> findByActivoTrue();
-
-    List<Producto> findByNombreContainingIgnoreCase(String nombre);
-
-    List<Producto> findByCategoria_IdCategoria(Integer idCategoria);
+    List<Venta> findByFechaVentaBetween(LocalDateTime desde, LocalDateTime hasta);
 
 }
