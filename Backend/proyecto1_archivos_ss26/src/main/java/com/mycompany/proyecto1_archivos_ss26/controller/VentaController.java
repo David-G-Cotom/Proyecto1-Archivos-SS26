@@ -58,4 +58,9 @@ public class VentaController {
         return this.ventaService.listar();
     }
 
+    @GetMapping("/cliente/{idCliente}")
+    public List<VentaResponseDTO> listarPorCliente(@PathVariable Integer idCliente) {
+        return this.ventaService.listarPorCliente(idCliente);
+    }
+
 }

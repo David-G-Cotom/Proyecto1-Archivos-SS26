@@ -21,7 +21,6 @@ import com.mycompany.proyecto1_archivos_ss26.exception.RecursoNoEncontradoExcept
 import com.mycompany.proyecto1_archivos_ss26.modelos.TipoMovimiento;
 import com.mycompany.proyecto1_archivos_ss26.repository.ClienteRepository;
 import com.mycompany.proyecto1_archivos_ss26.repository.DetalleCompraRepository;
-import com.mycompany.proyecto1_archivos_ss26.repository.MovimientoInventarioRepository;
 import com.mycompany.proyecto1_archivos_ss26.repository.ProductoRepository;
 import com.mycompany.proyecto1_archivos_ss26.repository.UsuarioRepository;
 import com.mycompany.proyecto1_archivos_ss26.repository.VentaRepository;
@@ -168,6 +167,15 @@ public class VentaService {
         }
 
         return listaDTOs;
+    }
+
+    public List<VentaResponseDTO> listarPorCliente(Integer idCliente) {
+        List<VentaResponseDTO> resultado = new ArrayList<>();
+        List<Venta> ventasCliente = this.ventaRepository.findByCliente_IdClienteOrderByFechaVentaDesc(idCliente);
+        for (Venta venta : ventasCliente) {
+            resultado.add(this.mapearAResponseDTO(venta));
+        }
+        return resultado;
     }
 
     private VentaResponseDTO mapearAResponseDTO(Venta venta) {
