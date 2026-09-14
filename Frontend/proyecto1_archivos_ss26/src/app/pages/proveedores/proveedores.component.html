@@ -72,9 +72,9 @@
             @for (proveedor of proveedoresFiltrados(); track proveedor.idProveedor) {
             <tr>
                 <td>{{ proveedor.nombre }}</td>
-                <td>{{ proveedor.nit ?? '-' }}</td>
-                <td>{{ proveedor.telefono ?? '-' }}</td>
-                <td>{{ proveedor.email ?? '-' }}</td>
+                <td>{{ proveedor.nit || '-' }}</td>
+                <td>{{ proveedor.telefono || '-' }}</td>
+                <td>{{ proveedor.email || '-' }}</td>
                 <td>
                     @if (proveedor.activo) {
                     <span class="badge text-bg-success">Activo</span>

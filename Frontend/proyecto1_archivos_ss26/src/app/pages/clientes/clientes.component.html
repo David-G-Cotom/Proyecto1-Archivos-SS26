@@ -1,1 +1,155 @@
-<p>clientes works!</p>
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Clientes</h1>
+    <button class="btn btn-primary" type="button" (click)="abrirFormularioCrear()">
+        + Nuevo cliente
+    </button>
+</div>
+
+@if (error()) {
+<div class="alert alert-danger" role="alert">{{ error() }}</div>
+}
+
+@if (mostrandoFormulario()) {
+<div class="card mb-4">
+    <div class="card-body">
+        <h2 class="h5 card-title">{{ editandoId() ? 'Editar cliente' : 'Nuevo cliente' }}</h2>
+
+        <form [formGroup]="formulario" (ngSubmit)="guardar()">
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label">Nombre</label>
+                    <input type="text" class="form-control" formControlName="nombre" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">NIT</label>
+                    <input type="text" class="form-control" formControlName="nit" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Telefono</label>
+                    <input type="text" class="form-control" formControlName="telefono" />
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-control" formControlName="email" />
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Direccion</label>
+                    <input type="text" class="form-control" formControlName="direccion" />
+                </div>
+            </div>
+
+            <div class="mt-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <button type="button" class="btn btn-outline-secondary" (click)="cancelarFormulario()">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</div>
+}
+
+@if (clienteHistorial(); as cliente) {
+<div class="card mb-4 border-primary">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+            <h2 class="h5 card-title mb-0">Historial de ventas: {{ cliente.nombre }}</h2>
+            <button class="btn btn-sm btn-outline-secondary" type="button" (click)="cerrarHistorial()">Cerrar</button>
+        </div>
+
+        @if (cargandoHistorial()) {
+        <p class="text-muted mb-0">Cargando historial...</p>
+        } @else {
+        <div class="table-responsive">
+            <table class="table table-sm table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>Fecha</th>
+                        <th>Productos</th>
+                        <th class="text-end">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (venta of ventasDelCliente(); track venta.idVenta) {
+                    <tr>
+                        <td>{{ venta.idVenta }}</td>
+                        <td>{{ venta.fechaVenta | date: 'dd/MM/yyyy HH:mm' }}</td>
+                        <td>{{ venta.detalles.length }} linea(s)</td>
+                        <td class="text-end">{{ venta.total | currency: 'GTQ' }}</td>
+                    </tr>
+                    } @empty {
+                    <tr>
+                        <td colspan="4" class="text-center text-muted py-3">Este cliente todavia no tiene ventas
+                            registradas.</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        }
+    </div>
+</div>
+}
+
+<div class="form-check mb-2">
+    <input class="form-check-input" type="checkbox" id="soloActivosClientes" [checked]="mostrarSoloActivos()"
+        (change)="mostrarSoloActivos.set(!mostrarSoloActivos())" />
+    <label class="form-check-label" for="soloActivosClientes">Mostrar solo clientes activos</label>
+</div>
+
+@if (cargando()) {
+<p class="text-muted">Cargando...</p>
+} @else {
+<div class="table-responsive">
+    <table class="table table-hover align-middle">
+        <thead class="table-light">
+            <tr>
+                <th>Nombre</th>
+                <th>NIT</th>
+                <th>Telefono</th>
+                <th>Email</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (cliente of clientesFiltrados(); track cliente.idCliente) {
+            <tr>
+                <td>{{ cliente.nombre }}</td>
+                <td>{{ cliente.nit || '-' }}</td>
+                <td>{{ cliente.telefono || '-' }}</td>
+                <td>{{ cliente.email || '-' }}</td>
+                <td>
+                    @if (cliente.activo) {
+                    <span class="badge text-bg-success">Activo</span>
+                    } @else {
+                    <span class="badge text-bg-secondary">Inactivo</span>
+                    }
+                </td>
+                <td class="text-end">
+                    <button class="btn btn-sm btn-outline-info me-2" type="button" (click)="verHistorial(cliente)">
+                        Historial
+                    </button>
+                    <button class="btn btn-sm btn-outline-primary me-2" type="button"
+                        (click)="abrirFormularioEditar(cliente)">
+                        Editar
+                    </button>
+                    @if (cliente.activo) {
+                    <button class="btn btn-sm btn-outline-danger" type="button" (click)="desactivar(cliente)">
+                        Desactivar
+                    </button>
+                    } @else {
+                    <button class="btn btn-sm btn-outline-success" type="button" (click)="reactivar(cliente)">
+                        Reactivar
+                    </button>
+                    }
+                </td>
+            </tr>
+            } @empty {
+            <tr>
+                <td colspan="6" class="text-center text-muted py-4">No hay clientes para mostrar.</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+}

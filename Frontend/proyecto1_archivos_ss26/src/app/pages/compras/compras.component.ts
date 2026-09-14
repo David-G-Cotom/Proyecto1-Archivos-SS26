@@ -100,10 +100,13 @@ export class ComprasComponent implements OnInit {
   }
 
   protected totalCalculado(): number {
-    return this.items.controls.reduce((acumulado, control) => {
-      const { cantidad, precioUnitario } = control.value;
-      return acumulado + (Number(cantidad) || 0) * (Number(precioUnitario) || 0);
-    }, 0);
+    let total = 0;
+    for (const control of this.items.controls) {
+      const cantidad = Number(control.value.cantidad) || 0;
+      const precio = Number(control.value.precioUnitario) || 0;
+      total += cantidad * precio;
+    }
+    return total;
   }
 
   protected abrirFormulario(): void {
