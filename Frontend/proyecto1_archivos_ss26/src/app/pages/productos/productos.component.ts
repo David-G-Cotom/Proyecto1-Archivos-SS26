@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Producto } from '../../models/producto.model';
 import { forkJoin } from 'rxjs';
 import { InventarioService } from '../../services/inventario.service';
@@ -14,7 +14,7 @@ import { CurrencyPipe } from '@angular/common';
   templateUrl: './productos.component.html',
   styleUrl: './productos.component.css',
 })
-export class ProductosComponent {
+export class ProductosComponent implements OnInit {
 
   protected readonly productos = signal<Producto[]>([]);
   protected readonly categorias = signal<Categoria[]>([]);
