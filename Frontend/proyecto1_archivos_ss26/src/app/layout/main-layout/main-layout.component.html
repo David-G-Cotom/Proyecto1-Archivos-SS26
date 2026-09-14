@@ -1,0 +1,35 @@
+<div class="d-flex flex-column vh-100">
+  <nav class="navbar navbar-dark bg-dark px-3">
+    <button class="btn btn-outline-light btn-sm me-3" type="button" (click)="alternarSidebar()">
+      <i class="bi bi-list"></i>
+    </button>
+    <span class="navbar-brand mb-0">Mini ERP</span>
+
+    @if (usuarioActual(); as usuario) {
+    <div class="ms-auto d-flex align-items-center gap-3">
+      <span class="text-white-50 small">{{ usuario.nombreCompleto }} ({{ usuario.rol }})</span>
+      <button class="btn btn-outline-light btn-sm" type="button" (click)="cerrarSesion()">
+        Cerrar sesion
+      </button>
+    </div>
+    }
+  </nav>
+
+  <div class="d-flex flex-grow-1 overflow-hidden">
+    <nav class="bg-white border-end flex-shrink-0 overflow-hidden" [class.d-none]="!sidebarAbierto()"
+      style="width: 200px;">
+      <div class="nav flex-column py-2">
+        @for (opcion of opcionesMenu(); track opcion.ruta) {
+        <a class="nav-link px-3 py-2 text-dark" [routerLink]="opcion.ruta"
+          routerLinkActive="active bg-primary-subtle text-primary fw-semibold">
+          {{ opcion.etiqueta }}
+        </a>
+        }
+      </div>
+    </nav>
+
+    <main class="flex-grow-1 overflow-auto p-4">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
