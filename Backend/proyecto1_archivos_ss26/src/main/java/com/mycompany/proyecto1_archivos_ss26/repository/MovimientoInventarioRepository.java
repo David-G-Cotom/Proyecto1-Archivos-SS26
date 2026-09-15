@@ -21,22 +21,22 @@ public interface MovimientoInventarioRepository extends JpaRepository<Movimiento
     List<MovimientoInventario> findByProducto_IdProductoOrderByFechaDesc(Integer idProducto);
 
     @Query("""
-            SELECT p.id_producto AS idProducto,
+            SELECT p.idProducto AS idProducto,
                    p.nombre     AS nombre,
-                   p.stock_minimo AS stockMinimo,
-                   p.stock_actual AS stockActual
+                   p.stockMinimo AS stockMinimo,
+                   p.stockActual AS stockActual
             FROM Producto p
             WHERE p.activo = true
             """)
     List<StockActualProjection> listarStockActual();
 
     @Query("""
-            SELECT p.id_producto AS idProducto,
+            SELECT p.idProducto AS idProducto,
                    p.nombre     AS nombre,
-                   p.stock_minimo AS stockMinimo,
-                   p.stock_actual AS stockActual
+                   p.stockMinimo AS stockMinimo,
+                   p.stockActual AS stockActual
             FROM Producto p
-            WHERE p.id_producto = :idProducto
+            WHERE p.idProducto = :idProducto
             """)
     Optional<StockActualProjection> obtenerStockActual(@Param("idProducto") Integer idProducto);
 

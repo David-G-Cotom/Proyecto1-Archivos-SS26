@@ -9,7 +9,6 @@ import com.mycompany.proyecto1_archivos_ss26.entity.Categoria;
 import com.mycompany.proyecto1_archivos_ss26.repository.CategoriaRepository;
 import java.util.ArrayList;
 import java.util.List;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/api/categorias")
-@CrossOrigin(origins = "http://localhost:4200")
 public class CategoriaController {
 
     private final CategoriaRepository categoriaRepository;

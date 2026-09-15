@@ -30,6 +30,7 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
@@ -54,7 +55,8 @@ public class VentaService {
             ProductoRepository productoRepository,
             DetalleCompraRepository detalleCompraRepository,
             MovimientoInventarioService movimientoInventarioService,
-            InventarioService inventarioService) {
+            InventarioService inventarioService,
+            @Value("${negocio.iva-tasa}") BigDecimal ivaTasa) {
         this.ventaRepository = ventaRepository;
         this.clienteRepository = clienteRepository;
         this.usuarioRepository = usuarioRepository;
@@ -62,7 +64,7 @@ public class VentaService {
         this.detalleCompraRepository = detalleCompraRepository;
         this.movimientoInventarioService = movimientoInventarioService;
         this.inventarioService = inventarioService;
-        this.ivaTasa = BigDecimal.valueOf(0.12);
+        this.ivaTasa = ivaTasa;
     }
 
     @Transactional
