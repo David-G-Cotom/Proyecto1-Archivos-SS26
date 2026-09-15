@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
 
   protected readonly errorLogin = signal(false);
+  protected readonly enviando = signal(false);
 
   private readonly fb = inject(FormBuilder);
   private readonly authService = inject(AuthService);
@@ -29,14 +30,18 @@ export class LoginComponent {
     }
 
     const { username, password } = this.formulario.getRawValue();
-    const exito = this.authService.login(username ?? '', password ?? '');
-
-    if (exito) {
-      this.errorLogin.set(false);
-      this.router.navigateByUrl('/dashboard');
-    } else {
-      this.errorLogin.set(true);
-    }
+    this.errorLogin.set(false);
+    this.enviando.set(true);
+    this.authService.login(username ?? '', password ?? '').subscribe({
+      next: () => {
+        this.enviando.set(false);
+        this.router.navigateByUrl('/dashboard');
+      },
+      error: () => {
+        this.enviando.set(false);
+        this.errorLogin.set(true);
+      },
+    });
   }
 
 }

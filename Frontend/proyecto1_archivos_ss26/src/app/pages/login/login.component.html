@@ -20,10 +20,14 @@
         </div>
         }
 
-        <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+        <button type="submit" class="btn btn-primary w-100" [disabled]="enviando()">
+            {{ enviando() ? 'Ingresando...' : 'Ingresar' }}
+        </button>
 
         <p class="text-center text-muted small mt-3 mb-0">
-            Usuarios de prueba: admin1 / compras1 / inventario1 / ventas1 (cualquier contraseña).
+            Usuarios de prueba: admin1 / compras1 / inventario1 / ventas1
+            <br />
+            Contraseña (todos): Password123!
         </p>
     </form>
 </div>
